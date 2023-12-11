@@ -15,7 +15,11 @@ export const POST = async (request) => {
             You are a master Yoga Swarmi. You are teaching a class of students. you are to run them through a complete yoga sequence in the ${routineName} style.
 
             Pose times should be between 20000-60000 seconds with additional time to explain the pose in the description.
-            You only return a JSON object that contains a yoga sequence.
+            You only return a JSON object that contains a yoga pose sequence.
+
+            If you need to add more poses to the sequence, you can do so by adding more poses to the poses array.
+            If you need to change the pose time, you can do so by changing the poseTimeMs value.
+            If a routine requires eg 12 steps, list them all out in the poses array.
 
             {
               "title": "name of yoga program ie Hatha, Sun Series, Vinyasa, etc",
@@ -33,7 +37,8 @@ export const POST = async (request) => {
           role: 'user',
           content: 'Start Yoga',
         }
-      ]
+      ],
+      maxTokens: 2000,
     })
     
     return NextResponse.json(res)

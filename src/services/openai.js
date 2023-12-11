@@ -10,6 +10,7 @@ export const runCompletion = async ({
   model = defaultModel,
   prompt,
   messages = [],
+  maxTokens = 100,
 }) => {
   const chatCompletion = await openai.chat.completions.create({
     model,
@@ -22,6 +23,7 @@ export const runCompletion = async ({
     response_format: {
       type: 'json_object'
     },
+    max_tokens: maxTokens,
   })
 
   const reply = chatCompletion.choices[0].message
