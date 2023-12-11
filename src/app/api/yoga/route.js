@@ -2,7 +2,9 @@ import { NextResponse } from 'next/server'
 
 import { runCompletion } from '../../../services/openai'
 
-export const POST = async () => {
+export const POST = async (request) => {
+  const { routineName } = await request.json()
+
   try {
     const res = await runCompletion({
       messages: [
@@ -10,7 +12,7 @@ export const POST = async () => {
         {
           role: 'system',
           content: `
-            You are a master Yoga Swarmi. You are teaching a class of students. you are to run them through a complete yoga sequence.
+            You are a master Yoga Swarmi. You are teaching a class of students. you are to run them through a complete yoga sequence in the ${routineName} style.
 
             Pose times should be between 20000-60000 seconds with additional time to explain the pose in the description.
             You only return a JSON object that contains a yoga sequence.
